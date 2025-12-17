@@ -1,0 +1,14 @@
+<!-- library/templates/library/unreturned_books.html -->
+{% extends 'library/base.html' %}
+
+{% block content %}
+<h2>Книги, не возвращённые на данный момент</h2>
+<ul class="uk-list uk-list-striped">
+{% for book in books %}
+    <li>{{ book.title }} — {{ book.author }}</li>
+{% empty %}
+    <li>Все книги возвращены</li>
+{% endfor %}
+</ul>
+<a href="{% url 'book_list' %}" class="uk-button uk-button-default">Назад</a>
+{% endblock %}

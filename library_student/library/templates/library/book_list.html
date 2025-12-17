@@ -1,0 +1,26 @@
+<!-- library/templates/library/book_list.html -->
+{% extends 'library/base.html' %}
+
+{% block content %}
+<form method="get" action="{% url 'search_books' %}" class="uk-margin-bottom">
+    <input type="text" name="q" placeholder="Поиск по названию или автору..."
+           value="{{ query }}" class="uk-input uk-form-width-medium">
+    <button type="submit" class="uk-button uk-button-primary">Найти</button>
+</form>
+
+<a href="{% url 'issue_book' %}" class="uk-button uk-button-secondary uk-margin-bottom">Выдать книгу</a>
+<a href="{% url 'unreturned_books' %}" class="uk-button uk-button-default uk-margin-bottom">Не возвращённые</a>
+
+<ul class="uk-list uk-list-striped">
+{% for book in books %}
+    <li>
+        <strong>{{ book.title }}</strong> — {{ book.author }} ({{ book.year }})
+        <span class="uk-label {% if book.is_available %}uk-label-success{% else %}uk-label-danger{% endif %}">
+            {% if book.is_available %}Доступна{% else %}Выдана{% endif %}
+        </span>
+    </li>
+{% empty %}
+    <li>Нет книг</li>
+{% endfor %}
+</ul>
+{% endblock %}

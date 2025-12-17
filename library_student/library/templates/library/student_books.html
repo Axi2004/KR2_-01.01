@@ -1,0 +1,14 @@
+<!-- library/templates/library/student_books.html -->
+{% extends 'library/base.html' %}
+
+{% block content %}
+<h2>Книги у студента: {{ student.full_name }}</h2>
+<ul class="uk-list uk-list-striped">
+{% for record in issued_books %}
+    <li>{{ record.book.title }} — {{ record.book.author }}</li>
+{% empty %}
+    <li>Нет выданных книг</li>
+{% endfor %}
+</ul>
+<a href="{% url 'book_list' %}" class="uk-button uk-button-default">Назад</a>
+{% endblock %}
